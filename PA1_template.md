@@ -1,12 +1,7 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
-```{r echo = TRUE}
 
+```r
 resp <- require("ggplot2", quietly = TRUE)
 
 if (!resp) {
@@ -16,14 +11,13 @@ if (!resp) {
                                       collapse=" "));
   stop(simpleError(blankMsg))
 }
-
 ```
 
 
 ## Loading and preprocessing the data
 
-```{r echo = TRUE}
 
+```r
 activity <- read.csv("activity.csv", stringsAsFactors=FALSE)
 
 # Converting date column format from character to Date
@@ -49,29 +43,27 @@ hours_interv[is.na(hours_interv)] <- 0
 
 # Calculating "normalized" interval with minutes as a fraction of hour  
 activity$interval_norm <- round((hours_interv + minutes_interv / 60) * 100)
-
 ```
 
 
 ## What is mean total number of steps taken per day?
 
-```{r echo = TRUE}
 
+```r
 steps_date <- aggregate(steps ~ date, data = activity, FUN = sum)
 mean_steps_date <- mean(steps_date$steps)
 median_steps_date <- median(steps_date$steps)
-
 ```
 
-The mean vaue for the total number of steps taken per day is `r mean_steps_date`
+The mean vaue for the total number of steps taken per day is 1.0766189\times 10^{4}
 steps.
 
-The median is `r round(median_steps_date, 1)` steps.
+The median is 1.0765\times 10^{4} steps.
 
 The following histogram shows the distribution of the total number of steps taken per day:
 
-```{r echo = TRUE, fig.height = 6}
 
+```r
 g <- ggplot(data = steps_date, aes(x=steps)) + 
         geom_histogram(binwidth = 2000,  
                        color = "darkred", fill = "orange") + 
@@ -79,8 +71,9 @@ g <- ggplot(data = steps_date, aes(x=steps)) +
         labs(y = "Frecuency", x = "Number of total steps / day") +
         scale_x_continuous(breaks = seq(0, 22500, by = 2000), expand = c(0, 0))
 print(g)
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)\
 
 
 ## What is the average daily activity pattern?
