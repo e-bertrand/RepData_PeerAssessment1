@@ -4,7 +4,7 @@ February, 3, 2016
 
 This report analyzes the dataset `activity` and documents the answer of some questions about its variables. The dataset `activity` includes the number of steps taken in 5 minute intervals each day from a personal activity monitoring device. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012.
 
-In order to reproduce the analysis, package `ggplot2` must be installed and loaded. If not, execution will be stopped.
+In order to reproduce the analysis, package `ggplot2` must be installed and loaded. If it is not possible, execution will be stopped.
 
 
 ```r
@@ -133,7 +133,7 @@ print(g)
 
 ![](PA1_template_files/figure-html/step_histogram-1.png)\
 
-Now, let's estimate the mean and the median of the total number of steps taken per day:
+We can now estimate the mean and the median of the total number of steps taken per day:
 
 
 ```r
@@ -170,7 +170,7 @@ print(g)
 
 ![](PA1_template_files/figure-html/step_time_series-1.png)\
 
-Now is time to determine the 5-minute interval that contains the maximum number of steps:
+It is time to determine the 5-minute interval that contains the maximum number of steps:
 
 
 ```r
@@ -205,7 +205,7 @@ cat("Number of missing values: ", number_rows_NA)
 Number of missing values:  2304
 ```
 
-in order to fill these missing values we have chosen the strategy of replacing them for the average number of steps, across days, for the same interval. We will create a new `activity_filled` data.frame:
+In order to fill these missing values we have chosen the strategy of replacing them for the average number of steps, across days, for the same interval. As a consequence, we will create a new `activity_filled` data.frame:
 
 
 ```r
@@ -267,7 +267,7 @@ Mean of total steps per day (filled dataset)   =  10765.64
 Median of total steps per day (filled dataset) =  10762
 ```
 
-What is the impact of imputing the missing data with these values? Let's calculate the differences between these and the previous estimates as percentage:
+What is the impact of filling the missing data with these values? Calculating the differences, as a percentage. between current and previous estimates is a good indicator:
 
 
 ```r
@@ -286,14 +286,14 @@ Difference in the estimates for 'filled' and 'missing values' datasets:
   - In the median:  0.028 %
 ```
 
-As we can see, the differences are minuscule, which is logic if we consider that the filling has been based on the average values for those intervals.
+As can be seen in the results, the differences are minuscule, which is logic if we consider that the filling has been based on the average values for those intervals.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 The last question is about if there are visible and meaningful differences in the activity between weekdays and weekends.
 
-Let's categorize the days in terms of these two types and plot a time series for both in order to make this comparison:
+In order to make this comparison, let's first categorize the days in terms of these two types and then plot a time series for both types:
 
 
 
@@ -325,5 +325,5 @@ print(g)
 
 
 
-It is obvious that the activity patterns differs noticeably from weekdays to weekends, where the activity is distributed accros the day (and not as concentrated in early morning as weekdays); and shifted to the right (later).
+As can be seen in the graph above, the activity patterns differs noticeably from weekdays to weekends, where the activity is distributed accros the day (and not as concentrated in early morning as weekdays); and shifted to the right (later).
 
