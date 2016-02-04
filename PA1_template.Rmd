@@ -1,7 +1,7 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 author: "Enrique Bertrand"
-date: "February, 3, 2016"
+date: "February, 4, 2016"
 output: 
   html_document:
     keep_md: true
@@ -25,6 +25,8 @@ if (!resp) {
 
 ## Loading and preprocessing the data
 
+### Raw file and reading
+
 The raw file `activity.csv` has been obtained, first downloading this zip file <https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip>, and then unzipping it. It must be available in the same directory where this script is running.
 
 The file is read and loaded in the data.frame `activity`:
@@ -44,6 +46,8 @@ head(activity, 5)
 str(activity)
 
 ```
+
+### Cleaning steps
 
 Before the data can be processed some cleaning steps must be done:
 
@@ -83,6 +87,8 @@ str(activity)
 
 ## What is mean total number of steps taken per day?
 
+### Distribution of total steps / day
+
 The following histogram shows the distribution of the total number of steps per day. Take into account that in this phase of analysis nothing has been done yet with missing values.
 
 ```{r step_histogram, echo = TRUE, fig.height = 6}
@@ -101,6 +107,9 @@ print(g)
 
 ```
 
+
+### Mean an median of total steps / day
+
 We can now estimate the mean and the median of the total number of steps taken per day:
 
 ```{r echo = TRUE, comment = "", results = "hold"}
@@ -117,6 +126,8 @@ cat("\nMedian of total steps per day = ", median_steps_pday)
 
 ## What is the average daily activity pattern?
 
+### Average daily activity
+
 The following time series plot shows, for every 5-minute interval, the average number of steps across all days.
 
 ```{r step_time_series, echo = TRUE, fig.height = 6}
@@ -132,6 +143,9 @@ g <- ggplot(data = steps_interval, aes(x=interval_norm, y=steps)) +
 print(g)
 
 ```
+
+
+### Daily interval with maximum activity
 
 It is time to determine the 5-minute interval that contains the maximum number of steps:
 
@@ -152,6 +166,8 @@ cat("Interval with maximum number of steps: ", most_active)
 
 ## Imputing missing values
 
+### Number of missing values in original dataset
+
 In the `activity` dataset there are missing values (coded as `NA`) in a number of rows:
 
 ```{r echo = TRUE, comment = ""}
@@ -161,6 +177,8 @@ number_rows_NA <- sum(is.na(activity))
 cat("Number of missing values: ", number_rows_NA)
 
 ```
+
+### Replacing missing values
 
 In order to fill these missing values we have chosen the strategy of replacing them for the average number of steps, across days, for the same interval. As a consequence, we will create a new `activity_filled` data.frame:
 
@@ -191,6 +209,8 @@ for (i in rows_with_NA) {
 ```
 
 
+### New distribution, mean, and median of total steps / day
+
 Let's plot an histogram and estimate the mean and the median of steps per day in this new "filled" dataset
 
 ```{r step_histogram_fill, echo = TRUE, fig.height = 6, comment = ""}
@@ -218,6 +238,8 @@ cat("Mean of total steps per day (filled dataset)   = ", mean_steps_pday_fill)
 cat("\nMedian of total steps per day (filled dataset) = ", median_steps_pday_fill)
 
 ```
+
+### Estimating differences between filled and not filled datasets
 
 What is the impact of filling the missing data with these values? Calculating the differences, as a percentage. between current and previous estimates is a good indicator:
 

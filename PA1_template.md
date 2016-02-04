@@ -1,6 +1,6 @@
 # Reproducible Research: Peer Assessment 1
 Enrique Bertrand  
-February, 3, 2016  
+February, 4, 2016  
 
 This report analyzes the dataset `activity` and documents the answer of some questions about its variables. The dataset `activity` includes the number of steps taken in 5 minute intervals each day from a personal activity monitoring device. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012.
 
@@ -18,6 +18,8 @@ if (!resp) {
 
 
 ## Loading and preprocessing the data
+
+### Raw file and reading
 
 The raw file `activity.csv` has been obtained, first downloading this zip file <https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip>, and then unzipping it. It must be available in the same directory where this script is running.
 
@@ -56,6 +58,8 @@ str(activity)
 ##  $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
 ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
+
+### Cleaning steps
 
 Before the data can be processed some cleaning steps must be done:
 
@@ -114,6 +118,8 @@ str(activity)
 
 ## What is mean total number of steps taken per day?
 
+### Distribution of total steps / day
+
 The following histogram shows the distribution of the total number of steps per day. Take into account that in this phase of analysis nothing has been done yet with missing values.
 
 
@@ -132,6 +138,9 @@ print(g)
 ```
 
 ![](PA1_template_files/figure-html/step_histogram-1.png)\
+
+
+### Mean an median of total steps / day
 
 We can now estimate the mean and the median of the total number of steps taken per day:
 
@@ -153,6 +162,8 @@ Median of total steps per day =  10765
 
 ## What is the average daily activity pattern?
 
+### Average daily activity
+
 The following time series plot shows, for every 5-minute interval, the average number of steps across all days.
 
 
@@ -169,6 +180,9 @@ print(g)
 ```
 
 ![](PA1_template_files/figure-html/step_time_series-1.png)\
+
+
+### Daily interval with maximum activity
 
 It is time to determine the 5-minute interval that contains the maximum number of steps:
 
@@ -192,6 +206,8 @@ Interval with maximum number of steps:  835
 
 ## Imputing missing values
 
+### Number of missing values in original dataset
+
 In the `activity` dataset there are missing values (coded as `NA`) in a number of rows:
 
 
@@ -204,6 +220,8 @@ cat("Number of missing values: ", number_rows_NA)
 ```
 Number of missing values:  2304
 ```
+
+### Replacing missing values
 
 In order to fill these missing values we have chosen the strategy of replacing them for the average number of steps, across days, for the same interval. As a consequence, we will create a new `activity_filled` data.frame:
 
@@ -232,6 +250,8 @@ for (i in rows_with_NA) {
 }
 ```
 
+
+### New distribution, mean, and median of total steps / day
 
 Let's plot an histogram and estimate the mean and the median of steps per day in this new "filled" dataset
 
@@ -266,6 +286,8 @@ cat("\nMedian of total steps per day (filled dataset) = ", median_steps_pday_fil
 Mean of total steps per day (filled dataset)   =  10765.64
 Median of total steps per day (filled dataset) =  10762
 ```
+
+### Estimating differences between filled and not filled datasets
 
 What is the impact of filling the missing data with these values? Calculating the differences, as a percentage. between current and previous estimates is a good indicator:
 
